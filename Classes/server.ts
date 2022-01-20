@@ -4,6 +4,7 @@ import { SERVER_PORT } from '../global/envarioment';
 import socketIO from 'socket.io';
 import http from 'http';
 import * as socket from '../sockets/sockets';
+import { configurarUsuario } from '../sockets/sockets';
 
 export default class Server {
 private static _instance: Server; // ayuda a tener una unica instaicia de la clase server y un socket
@@ -31,13 +32,16 @@ return  this._instance || (this._instance =  new this());
             private escucharSockets(){
             console.log('escuchando conexion de sockets');
                 this.io.on('connection', cliente =>{
-                console.log('Nuevo Cliente Conectado');
 
-                socket.mensaje(cliente, this.io);
+                // console.log('Nuevo Cliente Conectado');
+                console.log(cliente.id);
+
+                socket.conectarCliente(cliente);//conectar cliente
+                
+                socket.configurarUsuario(cliente, this.io); /// llama a la funcion creada en la carpeta sockets
+                socket.mensaje(cliente, this.io); /// mensajes
                 socket.desconectar(cliente); /// llama a la funcion creada en la carpeta sockets
-                // cliente.on('disconnect', () { 
-                // console.log('Cliente desconectado');
-                // });
+             
                 });
             }
 
