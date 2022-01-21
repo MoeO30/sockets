@@ -36,11 +36,13 @@ return  this._instance || (this._instance =  new this());
                 // console.log('Nuevo Cliente Conectado');
                 console.log(cliente.id);
 
-                socket.conectarCliente(cliente);//conectar cliente
+                socket.conectarCliente(cliente, this.io );//conectar cliente
                 
                 socket.configurarUsuario(cliente, this.io); /// llama a la funcion creada en la carpeta sockets
+                //obtener usuarios activos
+                socket.ObtenerUsuarios(cliente, this.io);
                 socket.mensaje(cliente, this.io); /// mensajes
-                socket.desconectar(cliente); /// llama a la funcion creada en la carpeta sockets
+                socket.desconectar(cliente, this.io); /// llama a la funcion creada en la carpeta sockets
              
                 });
             }
@@ -51,3 +53,4 @@ return  this._instance || (this._instance =  new this());
             }
 
 }
+

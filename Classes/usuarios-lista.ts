@@ -27,7 +27,7 @@ private lista: Usuario[] = [];
   /// Obtener lista de Usuarios
 
   public getLista() {
-     return this.lista; 
+     return this.lista.filter(usuario => usuario.nombre !=='sin nombre');
   }
 
    public getUsuario(id:string){
